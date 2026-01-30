@@ -32,12 +32,11 @@ container.appendChild(renderer.domElement);
 // Ajusta estos valores a tu gusto
 const particleSweepColorA = new THREE.Color(0x00ffff);
 const particleSweepColorB = new THREE.Color(0xff00ff);
-const particleSweepSpeed = 2.0;    // velocidad del barrido
-const particleSweepFreq = 3.0;     // "anchura" (más alto = más franjas)
+const particleSweepSpeed = 2.0; // velocidad del barrido
+const particleSweepFreq = 3.0; // "anchura" (más alto = más franjas)
 let particleYMin = 0;
 let particleYMax = 1;
 const _tmpSweepColor = new THREE.Color();
-
 
 // --------------------------------------------------
 // 2) Objetos (cubo + suelo) + sombras
@@ -45,7 +44,7 @@ const _tmpSweepColor = new THREE.Color();
 
 const ground = new THREE.Mesh(
   new THREE.CylinderGeometry(1, 3, 0.2, 64),
-  new THREE.ShadowMaterial()
+  new THREE.ShadowMaterial(),
 );
 ground.position.set(0, -0.1, 0);
 ground.receiveShadow = true;
@@ -54,7 +53,7 @@ scene.add(ground);
 function cube3d(posX) {
   const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x33bbff })
+    new THREE.MeshStandardMaterial({ color: 0x33bbff }),
   );
   cube.position.set(posX, 0.5, 0);
   cube.scale.set(0.1, 0.1, 0.1);
@@ -120,7 +119,7 @@ function buildParticlesFromModel(root, model, options = {}) {
   const pointsGeo = new THREE.BufferGeometry();
   pointsGeo.setAttribute(
     "position",
-    new THREE.Float32BufferAttribute(positions, 3)
+    new THREE.Float32BufferAttribute(positions, 3),
   );
   // Colores por vértice (se actualizarán en animate para el barrido)
   const colors = new Float32Array((positions.length / 3) * 3);
@@ -138,7 +137,6 @@ function buildParticlesFromModel(root, model, options = {}) {
     particleYMin = 0;
     particleYMax = 1;
   }
-
 
   const pointsMat = new THREE.PointsMaterial({
     size,
@@ -204,7 +202,7 @@ loader.load(
   },
   (error) => {
     console.error("An error happened loading the model:", error);
-  }
+  },
 );
 
 // --------------------------------------------------
@@ -253,7 +251,7 @@ window.addEventListener(
     cursorX = (e.clientX / window.innerWidth - 0.5) * 4;
     cursorY = (e.clientY / window.innerHeight - 0.5) * 4;
   },
-  { passive: true }
+  { passive: true },
 );
 
 // --------------------------------------------------
@@ -302,7 +300,12 @@ function animate() {
 
     for (let i = 0; i < posAttr.count; i++) {
       const yNorm = (posAttr.getY(i) - particleYMin) / yRange; // 0..1
-      const t = (Math.sin((yNorm * particleSweepFreq * Math.PI * 2) + (time * particleSweepSpeed)) + 1) / 2;
+      const t =
+        (Math.sin(
+          yNorm * particleSweepFreq * Math.PI * 2 + time * particleSweepSpeed,
+        ) +
+          1) /
+        2;
       _tmpSweepColor.copy(particleSweepColorA).lerp(particleSweepColorB, t);
       colAttr.setXYZ(i, _tmpSweepColor.r, _tmpSweepColor.g, _tmpSweepColor.b);
     }
@@ -331,167 +334,196 @@ function animate() {
 
 animate();
 
-// ---------------------------------------------------------------------------
-// Conway's Game of Life (proyecto especial debajo de "Proyectos")
-// ---------------------------------------------------------------------------
-function initConway() {
-  const canvas = document.getElementById("golCanvas");
-  if (!canvas) return;
+//Game of life
 
-  const ctx = canvas.getContext("2d", { alpha: true });
-  const toggleBtn = document.getElementById("golToggle");
-  const randomBtn = document.getElementById("golRandom");
-  const clearBtn = document.getElementById("golClear");
-  const speedSlider = document.getElementById("golSpeed");
+const canvas = document.getElementById("life");
+const ctx = canvas.getContext("2d");
 
-  // Grid
-  const CELL = 8; // tamaño de celda en píxeles (en el canvas lógico)
-  let cols = Math.floor(canvas.width / CELL);
-  let rows = Math.floor(canvas.height / CELL);
-  let grid = new Uint8Array(cols * rows);
-  let next = new Uint8Array(cols * rows);
+const CELL_SIZE = 12; //ej1
+const COLS = Math.floor(canvas.width / CELL_SIZE);
+const ROWS = Math.floor(canvas.height / CELL_SIZE);
 
-  function idx(x, y) {
-    return y * cols + x;
+function createGrid(rows, cols, fill = false) {
+  const g = new Array(rows);
+  for (let r = 0; r < rows; r++) {
+    g[r] = new Array(cols).fill(fill ? 1 : 0);
   }
-
-  function resizeCanvasToCSS() {
-    // Mantiene un canvas nítido: ajusta el tamaño interno a su tamaño CSS
-    const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.max(320, Math.floor(rect.width * dpr));
-    canvas.height = Math.max(200, Math.floor(rect.height * dpr));
-    cols = Math.floor(canvas.width / CELL);
-    rows = Math.floor(canvas.height / CELL);
-    grid = new Uint8Array(cols * rows);
-    next = new Uint8Array(cols * rows);
-    randomize(0.18);
-    draw();
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // fondo ligero
-    ctx.fillStyle = "rgba(255,255,255,0.04)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // celdas vivas
-    ctx.fillStyle = "rgba(102, 204, 255, 0.9)";
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        if (grid[idx(x, y)]) {
-          ctx.fillRect(x * CELL, y * CELL, CELL - 1, CELL - 1);
-        }
-      }
-    }
-  }
-
-  function step() {
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        let n = 0;
-        for (let oy = -1; oy <= 1; oy++) {
-          for (let ox = -1; ox <= 1; ox++) {
-            if (ox === 0 && oy === 0) continue;
-            const xx = x + ox;
-            const yy = y + oy;
-            if (xx < 0 || yy < 0 || xx >= cols || yy >= rows) continue; // borde muerto
-            n += grid[idx(xx, yy)];
-          }
-        }
-        const alive = grid[idx(x, y)] === 1;
-        next[idx(x, y)] =
-          (alive && (n === 2 || n === 3)) || (!alive && n === 3) ? 1 : 0;
-      }
-    }
-    const tmp = grid;
-    grid = next;
-    next = tmp;
-  }
-
-  function clear() {
-    grid.fill(0);
-    draw();
-  }
-
-  function randomize(p = 0.2) {
-    for (let i = 0; i < grid.length; i++) grid[i] = Math.random() < p ? 1 : 0;
-    draw();
-  }
-
-  // Interacción: click pinta/borra, shift+drag pinta
-  let painting = false;
-  let paintValue = 1;
-  function cellFromEvent(e) {
-    const r = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const x = Math.floor(((e.clientX - r.left) * dpr) / CELL);
-    const y = Math.floor(((e.clientY - r.top) * dpr) / CELL);
-    return { x, y };
-  }
-
-  canvas.addEventListener("pointerdown", (e) => {
-    painting = true;
-    canvas.setPointerCapture(e.pointerId);
-    const { x, y } = cellFromEvent(e);
-    if (x < 0 || y < 0 || x >= cols || y >= rows) return;
-    const i = idx(x, y);
-    paintValue = e.shiftKey ? 1 : grid[i] ? 0 : 1;
-    grid[i] = paintValue;
-    draw();
-  });
-  canvas.addEventListener("pointermove", (e) => {
-    if (!painting) return;
-    const { x, y } = cellFromEvent(e);
-    if (x < 0 || y < 0 || x >= cols || y >= rows) return;
-    grid[idx(x, y)] = paintValue;
-    draw();
-  });
-  canvas.addEventListener("pointerup", () => (painting = false));
-  canvas.addEventListener("pointercancel", () => (painting = false));
-
-  // Play/Pause + velocidad
-  let running = false;
-  let fps = Number(speedSlider?.value ?? 12);
-  let acc = 0;
-  function loop(ts) {
-    requestAnimationFrame(loop);
-    if (!running) return;
-    const dt = Math.min(0.05, (ts - (loop._last || ts)) / 1000);
-    loop._last = ts;
-    acc += dt;
-    const stepEvery = 1 / fps;
-    while (acc >= stepEvery) {
-      step();
-      acc -= stepEvery;
-    }
-    draw();
-  }
-  requestAnimationFrame(loop);
-
-  function setRunning(v) {
-    running = v;
-    if (toggleBtn) toggleBtn.textContent = running ? "Pausa" : "Reanudar";
-  }
-
-  toggleBtn?.addEventListener("click", () => setRunning(!running));
-  randomBtn?.addEventListener("click", () => randomize(0.2));
-  clearBtn?.addEventListener("click", () => clear());
-  speedSlider?.addEventListener(
-    "input",
-    () => (fps = Number(speedSlider.value))
-  );
-
-  window.addEventListener("keydown", (e) => {
-    if (e.code === "Space") {
-      e.preventDefault();
-      setRunning(!running);
-    }
-  });
-
-  // Ajuste responsivo
-  window.addEventListener("resize", resizeCanvasToCSS);
-  resizeCanvasToCSS();
+  return g;
 }
 
-initConway();
+let grid = createGrid(ROWS, COLS, false);
+
+function randomize(p = 0.2) {
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      grid[r][c] = Math.random() < p ? 1 : 0;
+    }
+  }
+}
+randomize(0.2); // 20% vivas
+
+function draw(showGrid = true) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "limegreen";
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (grid[r][c]) {
+        ctx.fillRect(c * CELL_SIZE, r * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      }
+    }
+  }
+}
+
+draw();
+
+function neighbors(r, c) {
+  let n = 0;
+  for (let dr = -1; dr <= 1; dr++) {
+    for (let dc = -1; dc <= 1; dc++) {
+      if (dr === 0 && dc === 0) continue;
+      const rr = (r + dr + ROWS) % ROWS;
+      const cc = (c + dc + COLS) % COLS;
+      n += grid[rr][cc];
+    }
+  }
+  return n;
+}
+
+let generations = 0;
+
+function step() {
+  const next = createGrid(ROWS, COLS, false);
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const alive = grid[r][c] === 1;
+      const n = neighbors(r, c);
+      next[r][c] =
+        (alive && (n === 2 || n === 3)) || (!alive && n === 3) ? 1 : 0;
+    }
+  }
+  grid = next;
+  draw();
+  generations++;
+  document.getElementById("info").textContent = generations;
+}
+
+step();
+
+let running = true;
+function loop() {
+  if (running) {
+    step();
+  }
+  setTimeout(loop, 100);
+}
+
+loop();
+document.addEventListener("keydown", (event) => {
+  if (event.key === " ") {
+    running = !running;
+    if (running) {
+      console.log("Simulación en ejecución");
+    } else {
+      console.log("Simulación pausada");
+    }
+    event.preventDefault();
+  }
+});
+
+const button = document.getElementById("button");
+const buttonReset = document.getElementById("empty");
+
+function reboot(event) {
+  let random;
+
+  if (event.currentTarget.id === "button") {
+    random = 0.2;
+  } else if (event.currentTarget.id === "empty") {
+    random = 0;
+  }
+  grid = createGrid(ROWS, COLS, false);
+  randomize(random);
+  draw();
+  generations = 0;
+  document.getElementById("info").textContent = generations;
+}
+
+button.addEventListener("click", reboot);
+buttonReset.addEventListener("click", reboot);
+
+const blinker = document.getElementById("blinker");
+
+function setBlinker(r, c) {
+  grid[r][c - 1] = 1;
+  grid[r][c] = 1;
+  grid[r][c + 1] = 1;
+}
+
+blinker.addEventListener("click", () => {
+  setBlinker(5, 5);
+  draw();
+});
+
+const toad = document.getElementById("toad");
+
+function setToad(r, c) {
+  grid[r][c - 1] = 1;
+  grid[r][c] = 1;
+  grid[r][c + 1] = 1;
+  grid[r - 1][c] = 1;
+  grid[r - 1][c + 1] = 1;
+  grid[r - 1][c + 2] = 1;
+}
+
+toad.addEventListener("click", () => {
+  setToad(30, 10);
+  draw();
+});
+
+const beacon = document.getElementById("beacon");
+function setBeacon(r, c) {
+  grid[r][c] = 1;
+  grid[r][c + 1] = 1;
+  grid[r + 1][c] = 1;
+  grid[r + 2][c + 3] = 1;
+  grid[r + 3][c + 2] = 1;
+  grid[r + 3][c + 3] = 1;
+}
+beacon.addEventListener("click", () => {
+  setBeacon(10, 30);
+  draw();
+});
+
+const glider = document.getElementById("glider");
+
+function setGlider(r, c) {
+  grid[r][c] = 1;
+  grid[r][c + 1] = 1;
+  grid[r][c + 2] = 1;
+  grid[r - 1][c + 2] = 1;
+  grid[r - 2][c + 1] = 1;
+}
+
+glider.addEventListener("click", () => {
+  setGlider(30, 30);
+  draw();
+});
+
+canvas.addEventListener("click", (event) => {
+  const rect = canvas.getBoundingClientRect();
+
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+
+  const mouseX = (event.clientX - rect.left) * scaleX;
+  const mouseY = (event.clientY - rect.top) * scaleY;
+
+  const c = Math.floor(mouseX / CELL_SIZE);
+  const r = Math.floor(mouseY / CELL_SIZE);
+
+  if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+    grid[r][c] = grid[r][c] ? 0 : 1;
+
+    draw();
+  }
+});

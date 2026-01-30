@@ -1,203 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- quitar el error el favicon -->
-    <link rel="shortcut icon" href="#" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header class="topbar">
-      <a class="brand" href="#">TuNombre.dev</a>
-      <nav class="nav">
-        <a href="#proyectos">Proyectos</a>
-        <a href="#skills">Skills</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
-    </header>
 
-    <main class="wrapper">
-      <section class="hero">
-        <div class="hero__text">
-          <h1>Portfolio de Programación</h1>
-          <p>
-            Desarrollador/a <strong>Front</strong> / <strong>Back</strong> /
-            <strong>Full‑Stack</strong>. Aquí puedes poner tu resumen, stack
-            principal y lo que te diferencia.
-          </p>
-          <div class="hero__cta">
-            <a class="btn" href="#proyectos">Ver proyectos</a>
-            <a class="btn btn--ghost" href="#contacto">Contactar</a>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVGF PORTFOLIO</title>
+  <!-- quitar el error el favicon -->
+  <link rel="shortcut icon" href="#" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://www.linkedin.com/in/manuel-granero-ferreira/" target="_blank">Manuel Vicente Granero
+      Ferreira</a>
+    <nav class="nav">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#skills">Skills</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <section class="hero">
+      <div class="hero__text">
+        <h1>Portfolio de Programación</h1>
+        <p>
+          Desarrollador/a <strong>Front</strong> / <strong>Back</strong> /
+          <strong>Full‑Stack</strong>. Aquí puedes poner tu resumen, stack
+          principal y lo que te diferencia.
+        </p>
+        <div class="hero__cta">
+          <a class="btn" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn--ghost" href="#contacto">Contactar</a>
         </div>
-        <div id="container3D" aria-label="Escena 3D decorativa">
-          <div class="sceneControls" aria-label="Controles de la escena 3D">
-            <button
-              class="btn btn--small btn--ghost"
-              id="toggleParticles"
-              type="button"
-              title="Alterna entre geometría y partículas (atajo: tecla P)"
-            >
-              Ver partículas
-            </button>
-          </div>
+      </div>
+      <div id="container3D" aria-label="Escena 3D decorativa">
+        <div class="sceneControls" aria-label="Controles de la escena 3D">
+          <button class="btn btn--small btn--ghost" id="toggleParticles" type="button"
+            title="Alterna entre geometría y partículas (atajo: tecla P)">
+            Ver partículas
+          </button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="proyectos" class="section">
-        <h2>Proyectos</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Proyecto 1</h3>
-            <img
-              src="img/proyecto1.png"
-              alt="Miniatura Proyecto 1"
-              class="project-thumb"
-            />
-            <p>Descripción corta del proyecto, qué resuelve y tu aportación.</p>
-            <div class="tags">
-              <span>React</span><span>Node</span><span>PostgreSQL</span>
-            </div>
-            <div class="links">
-              <a href="#">Demo</a>
-              <a href="#">Código</a>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3>Proyecto 2</h3>
-
-            <video
-              class="project-video"
-              controls
-              muted
-              poster="img/proyecto2.jpg"
-              width="310px"
-            >
-              <source src="img/proyecto2.mp4" type="video/mp4" />
-            </video>
-            <p>
-              Descripción corta del proyecto, métricas o resultados si tienes.
-            </p>
-            <div class="tags"><span>Three.js</span><span>WebGL</span></div>
-            <div class="links">
-              <a href="#">Demo</a>
-              <a href="#">Código</a>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3>Proyecto 3</h3>
-            <img
-              src="img/proyecto3.png"
-              alt="Miniatura Proyecto 3"
-              class="project-thumb"
-            />
-
-            <p>Descripción corta del proyecto, stack, retos técnicos, etc.</p>
-            <div class="tags"><span>Python</span><span>FastAPI</span></div>
-            <div class="links">
-              <a href="#">Demo</a>
-              <a href="#">Código</a>
-            </div>
-          </article>
-        </div>
-
-        <!-- Proyecto especial: Conway's Game of Life -->
-        <article class="card card--wide" id="conway">
-          <div class="card__header">
-            <div>
-              <h3>Proyecto especial · Conway's Game of Life</h3>
-              <p class="muted">
-                Autómata celular clásico. Click para dibujar, Space para pausar.
-              </p>
-            </div>
-            <div class="conway__controls" aria-label="Controles del juego">
-              <button class="btn btn--small" id="golToggle" type="button">
-                Comenzar
-              </button>
-              <button
-                class="btn btn--small btn--ghost"
-                id="golRandom"
-                type="button"
-              >
-                Aleatorio
-              </button>
-              <button
-                class="btn btn--small btn--ghost"
-                id="golClear"
-                type="button"
-              >
-                Limpiar
-              </button>
-              <label class="conway__speed">
-                <span>Velocidad</span>
-                <input id="golSpeed" type="range" min="1" max="30" value="12" />
-              </label>
-            </div>
+    <section id="proyectos" class="section">
+      <h2>Proyectos</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Proyecto 1</h3>
+          <img src="img/proyecto1.png" alt="Miniatura Proyecto 1" class="project-thumb" />
+          <p>Descripción corta del proyecto, qué resuelve y tu aportación.</p>
+          <div class="tags">
+            <span>React</span><span>Node</span><span>PostgreSQL</span>
           </div>
-          <div class="conway__wrap">
-            <canvas
-              id="golCanvas"
-              width="960"
-              height="360"
-              aria-label="Canvas del Juego de la Vida"
-            ></canvas>
-            <div class="conway__hint">
-              <span><kbd>Click</kbd> pinta/borra</span>
-              <span><kbd>Shift</kbd> + <kbd>drag</kbd> pinta</span>
-              <span><kbd>Space</kbd> pausa/reanuda</span>
-            </div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a href="#">Código</a>
           </div>
         </article>
-      </section>
 
-      <section id="skills" class="section">
-        <h2>Skills</h2>
-        <div class="grid grid--2">
-          <div class="card">
-            <h3>Técnicas</h3>
-            <ul>
-              <li>JavaScript / TypeScript</li>
-              <li>React / Vue / Angular</li>
-              <li>Node / Python / Java</li>
-              <li>SQL / NoSQL</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Otras</h3>
-            <ul>
-              <li>Testing (Jest, Playwright, Cypress)</li>
-              <li>CI/CD (GitHub Actions)</li>
-              <li>Docker / Cloud</li>
-              <li>UX básica / Accesibilidad</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        <article class="card">
+          <h3>Proyecto 2</h3>
 
-      <section id="contacto" class="section">
-        <h2>Contacto</h2>
-        <div class="card">
+          <video class="project-video" controls muted poster="img/proyecto2.jpg" width="310px">
+            <source src="img/proyecto2.mp4" type="video/mp4" />
+          </video>
           <p>
-            Email:
-            <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a> ·
-            GitHub: <a href="#">@tuusuario</a> · LinkedIn:
-            <a href="#">/in/tuusuario</a>
+            Descripción corta del proyecto, métricas o resultados si tienes.
           </p>
+          <div class="tags"><span>Three.js</span><span>WebGL</span></div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a href="#">Código</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Proyecto 3</h3>
+          <img src="img/proyecto3.png" alt="Miniatura Proyecto 3" class="project-thumb" />
+
+          <p>Descripción corta del proyecto, stack, retos técnicos, etc.</p>
+          <div class="tags"><span>Python</span><span>FastAPI</span></div>
+          <div class="links">
+            <a href="#">Demo</a>
+            <a href="#">Código</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Proyecto especial: Conway's Game of Life -->
+      <article class="card card--wide" id="conway">
+        <div class="card__header">
+          <div>
+            <h3>Conway's Game of Life</h3>
+            <p>Mi implementación del autómata celular con patrones predefinidos.</p>
+            <p class="muted">
+              Autómata celular clásico. Click para dibujar, Space para pausar. Pulsar sobre los nombres para crear vida
+              👽.
+            </p>
+            <div class="conway__wrapper">
+              <canvas id="life" width="1200" height="600"></canvas>
+
+              <div class="conway__controls">
+                <div class="conway__stats">
+                  <span>Generaciones: <strong id="info">0</strong></span>
+                </div>
+
+                <div class="conway__row">
+                  <button class="btn btn--small" id="button">Reiniciar</button>
+                  <button class="btn btn--small" id="empty">Vaciar</button>
+                </div>
+
+                <div class="conway__row">
+                  <span class="muted" style="font-size: 14px; margin-right: 5px;">Crear:</span>
+                  <button class="btn btn--small" id="blinker">Blinker</button>
+                  <button class="btn btn--small" id="toad">Toad</button>
+                  <button class="btn btn--small" id="beacon">Beacon</button>
+                  <button class="btn btn--small" id="glider">Glider</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="conway__hint">
+              <span><kbd>Space</kbd> pausa/reanuda</span>
+              <span>Click en el canvas para dibujar</span>
+            </div>
+      </article>
+      </article>
+    </section>
+
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+      <div class="grid grid--2">
+        <div class="card">
+          <h3>Técnicas</h3>
+          <ul>
+            <li>JavaScript / TypeScript</li>
+            <li>React / Vue / Angular</li>
+            <li>Node / Python / Java</li>
+            <li>SQL / NoSQL</li>
+          </ul>
         </div>
-      </section>
-    </main>
+        <div class="card">
+          <h3>Otras</h3>
+          <ul>
+            <li>Testing (Jest, Playwright, Cypress)</li>
+            <li>CI/CD (GitHub Actions)</li>
+            <li>Docker / Cloud</li>
+            <li>UX básica / Accesibilidad</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <footer class="footer">
-      © <span id="year"></span> TuNombre · Hecho con Three.js
-    </footer>
+    <section id="contacto" class="section">
+      <h2>Contacto</h2>
+      <div class="card">
+        <p>
+          Email:
+          <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a> ·
+          GitHub: <a href="#">@tuusuario</a> · LinkedIn:
+          <a href="#">/in/tuusuario</a>
+        </p>
+      </div>
+    </section>
+  </main>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-    <script type="module" src="js/main.js"></script>
-  </body>
+  <footer class="footer">
+    © <span id="year"></span> TuNombre · Hecho con Three.js
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+
 </html>

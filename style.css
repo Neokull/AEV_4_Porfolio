@@ -12,8 +12,18 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
-    Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    Noto Sans,
+    Helvetica,
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji";
   background: radial-gradient(
     1200px 500px at 10% 0%,
     #18234a 0%,
@@ -112,6 +122,8 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.12);
   font-weight: 700;
+  cursor: pointer;
+  color: var(--text);
 }
 
 .btn:hover {
@@ -136,6 +148,13 @@ a:hover {
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+
+#container3D canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .sceneControls {
@@ -182,71 +201,8 @@ a:hover {
   margin-top: 14px;
 }
 
-.muted {
-  color: var(--muted);
-  margin: 0;
-}
-
-/* Conway */
 .card__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
   margin-bottom: 12px;
-}
-
-.conway__controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.conway__speed {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.conway__speed input[type="range"] {
-  width: 130px;
-}
-
-.conway__wrap {
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.2);
-}
-
-#golCanvas {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.conway__hint {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding: 10px 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(233, 238, 252, 0.65);
-  font-size: 12px;
-}
-
-kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
 }
 
 .card h3 {
@@ -260,9 +216,9 @@ kbd {
   line-height: 1.5;
 }
 
-.card ul {
-  margin: 10px 0 0;
-  padding-left: 18px;
+.muted {
+  color: var(--muted);
+  margin: 0;
 }
 
 .tags {
@@ -287,6 +243,66 @@ kbd {
   font-weight: 700;
 }
 
+/* --- Conway's Game of Life Styles --- */
+.conway__wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Canvas ocupa todo el ancho */
+#life {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  cursor: crosshair;
+  background-color: #000;
+}
+
+.conway__controls {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.conway__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.conway__stats {
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* Hint centrado y sin borde superior */
+.conway__hint {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding: 12px 0 0 0;
+  border-top: none;
+  color: rgba(233, 238, 252, 0.65);
+  font-size: 12px;
+  width: 100%;
+}
+
+kbd {
+  font-family: monospace;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Footer */
 .footer {
   padding: 18px 22px;
   color: rgba(233, 238, 252, 0.65);
@@ -305,14 +321,4 @@ kbd {
   .grid--2 {
     grid-template-columns: 1fr;
   }
-}
-
-/* Three.js canvas fill */
-#container3D {
-  position: relative;
-}
-#container3D canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
 }
