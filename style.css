@@ -1,9 +1,10 @@
 :root {
-  --bg: #0b1020;
-  --card: rgba(255, 255, 255, 0.06);
-  --text: #e9eefc;
-  --muted: rgba(233, 238, 252, 0.72);
-  --border: rgba(255, 255, 255, 0.12);
+  --bg: #0d1117;
+  --card: #161b22;
+  --text: #c9d1d9;
+  --muted: #8b949e;
+  --border: #30363d;
+  --accent: #58a6ff;
 }
 
 * {
@@ -15,30 +16,26 @@ body {
   font-family:
     system-ui,
     -apple-system,
-    Segoe UI,
+    "Segoe UI",
     Roboto,
-    Ubuntu,
-    Cantarell,
-    Noto Sans,
     Helvetica,
     Arial,
+    sans-serif,
     "Apple Color Emoji",
     "Segoe UI Emoji";
-  background: radial-gradient(
-    1200px 500px at 10% 0%,
-    #18234a 0%,
-    var(--bg) 60%
-  );
+  background-color: var(--bg);
   color: var(--text);
 }
 
 a {
-  color: inherit;
+  color: var(--accent);
   text-decoration: none;
+  font-weight: 500;
 }
 
 a:hover {
   text-decoration: underline;
+  color: #79c0ff;
 }
 
 .topbar {
@@ -118,21 +115,30 @@ a:hover {
   align-items: center;
   justify-content: center;
   padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.12);
-  font-weight: 700;
-  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #21262d;
   color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn:hover {
+  background: #30363d;
+  border-color: #8b949e;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.18);
 }
 
 .btn--ghost {
   background: transparent;
+  border-color: transparent;
+  color: var(--accent);
+}
+
+.btn--ghost:hover {
+  background: var(--card);
+  color: #79c0ff;
 }
 
 .btn--small {
@@ -321,4 +327,15 @@ kbd {
   .grid--2 {
     grid-template-columns: 1fr;
   }
+}
+
+.project-thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: var(--card);
+  display: block;
+  margin-bottom: 12px;
 }

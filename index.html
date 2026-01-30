@@ -5,8 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MVGF PORTFOLIO</title>
-  <!-- quitar el error el favicon -->
-  <link rel="shortcut icon" href="#" />
+  <link rel="icon" href="./img/favicon.ico" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -24,15 +23,20 @@
   <main class="wrapper">
     <section class="hero">
       <div class="hero__text">
-        <h1>Portfolio de Programación</h1>
-        <p>
-          Desarrollador/a <strong>Front</strong> / <strong>Back</strong> /
-          <strong>Full‑Stack</strong>. Aquí puedes poner tu resumen, stack
-          principal y lo que te diferencia.
+        <h1>MVGF</h1>
+        <p style="font-size: 1.2rem; color: var(--accent); margin-bottom: 10px;">
+          Desarrollador Web Full-Stack
         </p>
+
+        <p>
+          Estudiante de <strong>DAW</strong> apasionado por el código limpio y la arquitectura de software.
+          Especializado en crear soluciones con <strong>Angular</strong> y <strong>Symfony</strong>,
+          con interés en el despliegue (Docker/Cloud) y buenas prácticas.
+        </p>
+
         <div class="hero__cta">
-          <a class="btn" href="#proyectos">Ver proyectos</a>
-          <a class="btn btn--ghost" href="#contacto">Contactar</a>
+          <a class="btn" href="#proyectos">Ver mis proyectos</a>
+          <a class="btn btn--ghost" href="#contacto">Hablemos</a>
         </div>
       </div>
       <div id="container3D" aria-label="Escena 3D decorativa">
@@ -47,58 +51,64 @@
 
     <section id="proyectos" class="section">
       <h2>Proyectos</h2>
+
       <div class="grid">
         <article class="card">
-          <h3>Proyecto 1</h3>
-          <img src="img/proyecto1.png" alt="Miniatura Proyecto 1" class="project-thumb" />
-          <p>Descripción corta del proyecto, qué resuelve y tu aportación.</p>
-          <div class="tags">
-            <span>React</span><span>Node</span><span>PostgreSQL</span>
-          </div>
-          <div class="links">
-            <a href="#">Demo</a>
-            <a href="#">Código</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <h3>Proyecto 2</h3>
-
-          <video class="project-video" controls muted poster="img/proyecto2.jpg" width="310px">
-            <source src="img/proyecto2.mp4" type="video/mp4" />
-          </video>
+          <h3>Tienda PWA</h3>
+          <img src="img/proyecto1.webp" alt="Miniatura Proyecto 1" class="project-thumb" />
           <p>
-            Descripción corta del proyecto, métricas o resultados si tienes.
+            E-commerce diseñado bajo criterios de <strong>ecodiseño</strong> y sostenibilidad digital.
+            Gestión de estado mediante <strong>Local Storage</strong>, cacheo con Service Workers y
+            puntuación 100/100 en auditorías <strong>Lighthouse</strong>.
           </p>
-          <div class="tags"><span>Three.js</span><span>WebGL</span></div>
+          <div class="tags">
+            <span>Vanilla JS</span><span>PWA</span><span>Ecodiseño</span><span>Local Storage</span>
+          </div>
           <div class="links">
-            <a href="#">Demo</a>
-            <a href="#">Código</a>
+            <a href="https://github.com/Neokull/AEV3-Sostenibilidad" target="_blank">Código</a>
           </div>
         </article>
 
         <article class="card">
-          <h3>Proyecto 3</h3>
-          <img src="img/proyecto3.png" alt="Miniatura Proyecto 3" class="project-thumb" />
-
-          <p>Descripción corta del proyecto, stack, retos técnicos, etc.</p>
-          <div class="tags"><span>Python</span><span>FastAPI</span></div>
+          <h3>Microrobots</h3>
+          <img src="img/proyecto2.webp" alt="Miniatura Proyecto 2" class="project-thumb" />
+          <p>
+            Digitalización del juego de mesa "Microrobots". Desarrollo de <strong>algoritmos</strong>
+            para la generación aleatoria de tableros y validación de movimientos.
+            Gestión de estado y persistencia mediante <strong>Sesiones PHP</strong>.
+          </p>
+          <div class="tags">
+            <span>PHP</span><span>Backend Logic</span><span>Algoritmos</span><span>Sesiones</span>
+          </div>
           <div class="links">
-            <a href="#">Demo</a>
-            <a href="#">Código</a>
+            <a href="https://github.com/Neokull/MICROROBOTS_PROGRAMACION" target="_blank">Código</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Portal Inmobiliario UI/UX</h3>
+          <img src="img/proyecto3.webp" alt="Miniatura Proyecto 3" class="project-thumb" />
+          <p>
+            Diseño integral de interfaz para "Agencia Casablanca". Foco en <strong>UX/UI</strong>,
+            accesibilidad y adaptabilidad móvil (Responsive). Implementación mediante
+            <strong>Bootstrap 5</strong> siguiendo principios de diseño Gestalt.
+          </p>
+          <div class="tags">
+            <span>Bootstrap 5</span><span>UI/UX Design</span><span>HTML5/CSS3</span>
+          </div>
+          <div class="links">
+            <a href="https://github.com/Neokull/AEV2_Dise-o_de_interfaces_web" target="_blank">Código</a>
           </div>
         </article>
       </div>
-
-      <!-- Proyecto especial: Conway's Game of Life -->
       <article class="card card--wide" id="conway">
         <div class="card__header">
           <div>
             <h3>Conway's Game of Life</h3>
             <p>Mi implementación del autómata celular con patrones predefinidos.</p>
             <p class="muted">
-              Autómata celular clásico. Click para dibujar, Space para pausar. Pulsar sobre los nombres para crear vida
-              👽.
+              Autómata celular clásico. Click para dibujar, Space para pausar. Pulsar sobre los nombres para crear
+              vida 👽.
             </p>
             <div class="conway__wrapper">
               <canvas id="life" width="1200" height="600"></canvas>
@@ -127,29 +137,34 @@
               <span><kbd>Space</kbd> pausa/reanuda</span>
               <span>Click en el canvas para dibujar</span>
             </div>
+          </div>
+        </div>
       </article>
-      </article>
+
     </section>
 
     <section id="skills" class="section">
       <h2>Skills</h2>
       <div class="grid grid--2">
         <div class="card">
-          <h3>Técnicas</h3>
+          <h3>Stack Tecnológico</h3>
           <ul>
+            <li>HTML5 / CSS3</li>
             <li>JavaScript / TypeScript</li>
-            <li>React / Vue / Angular</li>
-            <li>Node / Python / Java</li>
-            <li>SQL / NoSQL</li>
+            <li>Angular (Frontend)</li>
+            <li>PHP / Symfony (Backend)</li>
+            <li>SQL / MySQL</li>
           </ul>
         </div>
+
         <div class="card">
-          <h3>Otras</h3>
+          <h3>Tools & Despliegue</h3>
           <ul>
-            <li>Testing (Jest, Playwright, Cypress)</li>
-            <li>CI/CD (GitHub Actions)</li>
-            <li>Docker / Cloud</li>
-            <li>UX básica / Accesibilidad</li>
+            <li>Git / GitHub</li>
+            <li>Docker / Contenedores</li>
+            <li>Cloud Computing (Básico)</li>
+            <li>Despliegue de Aplicaciones</li>
+            <li>Diseño Responsive / Bootstrap</li>
           </ul>
         </div>
       </div>
@@ -160,16 +175,26 @@
       <div class="card">
         <p>
           Email:
-          <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a> ·
-          GitHub: <a href="#">@tuusuario</a> · LinkedIn:
-          <a href="#">/in/tuusuario</a>
+          <a href="mailto:manuel.granero.dev@gmail.com">manuel.granero.dev@egmail.com</a> ·
+          GitHub: <a href="https://github.com/Neokull" target="_blank">@Neokull</a> · LinkedIn:
+          <a href="https://www.linkedin.com/in/manuel-granero-ferreira" target="_blank">/in/manuel-granero-ferreira</a>
         </p>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    © <span id="year"></span> TuNombre · Hecho con Three.js
+    © <span id="year"></span> Manuel Vicente Granero Ferreira · Hecho con Three.js
+    <br>
+    <small style="opacity: 0.6; font-size: 0.85em;">
+      Modelo 3D:
+      <a href="https://sketchfab.com/3d-models/jack-skellington-cup-6142a5564edb4a7ba1c948673460afe0" target="_blank"
+        style="text-decoration: underline;">
+        Jack Skellington Cup
+      </a>por <a href="https://sketchfab.com/Blue_Moon" target="_blank">AoBlue_Moon</a>
+      bajo licencia
+      <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC Attribution</a>.
+    </small>
   </footer>
 
   <script>

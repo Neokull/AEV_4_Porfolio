@@ -149,7 +149,7 @@ function buildParticlesFromModel(root, model, options = {}) {
 
   const points = new THREE.Points(pointsGeo, pointsMat);
   points.visible = false;
-  points.frustumCulled = false; // evita "parpadeos" por bounding box imprecisa
+  points.frustumCulled = false;
   root.add(points);
   return points;
 }
@@ -162,33 +162,28 @@ function setParticlesMode(on) {
   if (btn)
     btn.textContent = showingParticles ? "Ver geometría" : "Ver partículas";
 }
+
 loader.load(
-  `./models/snakeVoxels.gltf`,
+  "./models/taza.glb",
   (gltf) => {
     const model = gltf.scene;
-    model.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-    model.position.set(0, 0, 0);
-    model.scale.set(0.1, 0.1, 0.1);
 
-    // Wrapper para poder alternar visibilidades sin tocar transforms
+    model.position.set(0, 0.5, 0);
+    model.scale.set(18, 18, 18);
+    model.rotation.y = -Math.PI / -4;
+
     modelRoot = new THREE.Group();
-    modelRoot.position.set(0, 0, 0);
     modelRoot.add(model);
     scene.add(modelRoot);
 
     loadedModel = model;
+
     particlePoints = buildParticlesFromModel(modelRoot, loadedModel, {
-      maxPoints: 14000,
-      size: 0.022,
+      maxPoints: 8000,
+      size: 0.02,
       opacity: 0.9,
     });
 
-    // UI: botón + atajo teclado
     const btn = document.getElementById("toggleParticles");
     btn?.addEventListener("click", () => setParticlesMode(!showingParticles));
     window.addEventListener("keydown", (e) => {
@@ -201,7 +196,7 @@ loader.load(
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
-    console.error("An error happened loading the model:", error);
+    console.error("Error al cargar la taza:", error);
   },
 );
 
@@ -364,7 +359,7 @@ randomize(0.2); // 20% vivas
 
 function draw(showGrid = true) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "limegreen";
+  ctx.fillStyle = "#58a6ff";
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
       if (grid[r][c]) {
