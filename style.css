@@ -339,3 +339,78 @@ kbd {
   display: block;
   margin-bottom: 12px;
 }
+
+.github-chart {
+  margin-bottom: 30px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.github-chart img {
+  max-width: 100%;
+  height: auto;
+  min-width: 600px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid var(--border);
+  margin-left: 10px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -26px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+
+.timeline-content h3 {
+  margin: 0 0 5px;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.timeline-content .muted {
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--accent);
+  color: var(--bg);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  z-index: 100;
+}
+
+.scroll-top:hover {
+  opacity: 1;
+}

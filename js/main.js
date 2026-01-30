@@ -42,14 +42,6 @@ const _tmpSweepColor = new THREE.Color();
 // 2) Objetos (cubo + suelo) + sombras
 // --------------------------------------------------
 
-const ground = new THREE.Mesh(
-  new THREE.CylinderGeometry(1, 3, 0.2, 64),
-  new THREE.ShadowMaterial(),
-);
-ground.position.set(0, -0.1, 0);
-ground.receiveShadow = true;
-scene.add(ground);
-
 function cube3d(posX) {
   const cube = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1),
